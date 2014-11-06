@@ -3,12 +3,6 @@
 'use strict';
 
 /**
- * Dependencies
- */
-
-var pressed = require('pressed');
-
-/**
  * Prototype extends from
  * the HTMLElement.
  *
@@ -27,8 +21,6 @@ proto.createdCallback = function() {
   this.disabled = this.hasAttribute('disabled');
   this.setAttribute('role', 'button');
   this.tabIndex = 0;
-
-  pressed(this.shadowRoot);
   this.styleHack();
 };
 
@@ -81,7 +73,19 @@ var template = `
 .-host {
   display: inline-block;
   box-sizing: border-box;
+  min-width: 50%;
   outline: 0;
+}
+
+@media(min-width:600px) {
+  .-host {
+    min-width: 120px;
+  }
+}
+
+.-host[circular] {
+  width: 50px;
+  min-width: 0;
 }
 
 /** Inner
@@ -95,6 +99,7 @@ var template = `
   cursor: pointer;
   -moz-user-select: none;
   line-height: 1;
+  transition: color 0ms 300ms;
 
   background:
     var(--button-background,
@@ -118,8 +123,6 @@ var template = `
  */
 
 .inner[circular] {
-  width: 50px;
-  height: 50px;
   border-radius: 50%;
 }
 
@@ -136,7 +139,8 @@ var template = `
  * .pressed
  */
 
-.inner.pressed {
+.inner:active {
+  transition: none;
   color: var(--button-color-active, #fff);
   box-shadow: var(--button-box-shadow-active, none);
 }
@@ -154,13 +158,16 @@ var template = `
   height: 100%;
   opacity: 0;
 
+  transition: opacity 500ms 200ms;
+
   background:
     var(--button-background-active,
     var(--highlight-color,
     #333));
 }
 
-.pressed .background {
+:active .background {
+  transition: none;
   opacity: 1;
 }
 
@@ -171,6 +178,18 @@ var template = `
 i:before {
   font-size: 26px;
 }
+
+.-content i {
+  margin-left: -2px;
+  margin-right: -2px;
+}
+
+.-content i + span,
+.-content span + i {
+  margin-left: 8px;
+}
+
+
 
 /** Content
  ---------------------------------------------------------*/
@@ -189,7 +208,7 @@ i:before {
   position: relative;
   z-index: 2;
   height: 100%;
-  padding: 0 22px;
+  padding: 0 18px;
   font-style: italic;
   font-size: 17px;
   pointer-events: none; /* 1 */
