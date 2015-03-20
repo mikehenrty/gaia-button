@@ -70,11 +70,36 @@ module.exports = component.register('gaia-button', {
       box-sizing: border-box;
       height: 50px;
       border-radius: 50px;
+      overflow: hidden;
       min-width: 50%;
       margin: var(--base-m, 18px);
       outline: 0;
       font-style: italic;
       font-size: 17px;
+
+      background:
+        var(--button-background,
+        var(--input-background,
+        var(--background-plus,
+        #fff)));
+
+      color:
+        var(--button-color,
+        var(--text-color,
+        inherit));
+
+      box-shadow:
+        var(--button-box-shadow,
+        var(--box-shadow,
+        none));
+
+      transition: color 0ms 300ms;
+    }
+
+    :host:active {
+      transition: none;
+      color: var(--button-color-active, #fff);
+      box-shadow: var(--button-box-shadow-active, none);
     }
 
     @media(min-width:500px) {
@@ -93,27 +118,9 @@ module.exports = component.register('gaia-button', {
     .inner {
       position: relative;
       height: 100%;
-      overflow: hidden;
       cursor: pointer;
       -moz-user-select: none;
       line-height: 1;
-      transition: color 0ms 300ms;
-
-      background:
-        var(--button-background,
-        var(--input-background,
-        var(--background-plus,
-        #fff)));
-
-      color:
-        var(--button-color,
-        var(--text-color,
-        inherit));
-
-      box-shadow:
-        var(--button-box-shadow,
-        var(--box-shadow,
-        none));
     }
 
     /**
@@ -129,11 +136,6 @@ module.exports = component.register('gaia-button', {
      * .pressed
      */
 
-    .inner:active {
-      transition: none;
-      color: var(--button-color-active, #fff);
-      box-shadow: var(--button-box-shadow-active, none);
-    }
 
     /** Background
      ---------------------------------------------------------*/
