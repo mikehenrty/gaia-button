@@ -69,6 +69,7 @@ module.exports = component.register('gaia-button', {
       display: block;
       box-sizing: border-box;
       height: 50px;
+      border-radius: 50px;
       min-width: 50%;
       margin: var(--base-m, 18px);
       outline: 0;
@@ -83,6 +84,7 @@ module.exports = component.register('gaia-button', {
     :host([circular]) {
       width: 50px;
       min-width: 0;
+      border-radius: 50%;
     }
 
     /** Inner
@@ -91,7 +93,6 @@ module.exports = component.register('gaia-button', {
     .inner {
       position: relative;
       height: 100%;
-      border-radius: 50px;
       overflow: hidden;
       cursor: pointer;
       -moz-user-select: none;
@@ -113,14 +114,6 @@ module.exports = component.register('gaia-button', {
         var(--button-box-shadow,
         var(--box-shadow,
         none));
-    }
-
-    /**
-     * [circular]
-     */
-
-    .inner[circular] {
-      border-radius: 50%;
     }
 
     /**
